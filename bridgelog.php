@@ -3,7 +3,7 @@
 	include "conn.php";
 
 	// AUTH TENANT
-	$bridge_log = "SELECT * FROM bridge_log LIMIT 150000";
+	$bridge_log = "SELECT * FROM bridge_log LIMIT 100000";
 	$query_bridge_log = mysqli_query($koneksi,$bridge_log);
 
 	while ($dtat=mysqli_fetch_array($query_bridge_log)) {
