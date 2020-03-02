@@ -1,19 +1,28 @@
 <?php 
 	include_once('conn.php');
 
-	$id = $_POST['id'];
-	$name = $_POST['name'];
-	$whitelist= $_POST['whitelist'];
-	$key_public = $_POST['key_public'];
-	$key_private = $_POST['key_private'];
+	// $id = $_POST['id'];
 
-	$insert = "INSERT INTO auth_tenant(id,name,whitelist,key_public,key_private) VALUES ('$id', '$name', '$whitelist', '$key_public', '$key_private')";
+	$msisdn = $_POST['msisdn'];
+	$called= $_POST['called'];
+	$lat = $_POST['lat'];
+	$lng = $_POST['lng'];
+	$area = $_POST['area'];
+	$ts = $_POST['ts'];
+	$tenant = $_POST['tenant'];
+
+	$id = mysqli_query($koneksi, "SELECT MAX(id) as id FROM bridge_log");
+
+	while ($dt=mysqli_fetch_array($id)) {
+		$row = $dt['id'];
+	}
+
+	$lastid = $row+1;
+
+
+	$insert = "INSERT INTO bridge_log VALUES ('$lastid', '$msisdn', '$called', '$lat', '$lng', '$area', '$ts', '$tenant')";
 
 	$insertto = mysqli_query($koneksi, $insert);
-
-	$response = array();
-
-
 
 	if($insertto) {
 	  $response['code'] =1;

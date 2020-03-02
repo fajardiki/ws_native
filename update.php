@@ -3,16 +3,20 @@
 
 	$id = $_POST['id'];
 
-	$name = $_POST['name'];
-	$whitelist= $_POST['whitelist'];
-	$key_public = $_POST['key_public'];
-	$key_private = $_POST['key_private'];
+	$msisdn = $_POST['msisdn'];
+	$called= $_POST['called'];
+	$lat = $_POST['lat'];
+	$lng = $_POST['lng'];
+	$area = $_POST['area'];
+	$ts = $_POST['ts'];
+	$tenant = $_POST['tenant'];
 
-	$getdata = mysqli_query($koneksi, "SELECT * FROM auth_tenant WHERE id='$id'");
+
+	$getdata = mysqli_query($koneksi, "SELECT * FROM bridge_log WHERE id='$id'");
 	$rows = mysqli_num_rows($getdata);
 
-	$update = "UPDATE auth_tenant SET whitelist='$whitelist', key_public='$key_public', key_private='$key_private' WHERE id='$id'";
-	$queryupdate = mysqli_query($koneksi, $update);
+	$update = "UPDATE bridge_log SET msisdn='$msisdn', called='$called', lat='$lat', lng='$lng', area='$area', ts='$ts', tenant='$tenant' WHERE id='$id'";
+	// $queryupdate = mysqli_query($koneksi, $update);
 
 	$respose = array();
 
