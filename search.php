@@ -27,8 +27,6 @@
 
 	$execution_time = $time_end - $time_start;
 
-	$result = number_format($execution_time,3);
-
 	$json = array(
 		'result'=>'succes',
 		'Bridge_Log'=>$item,

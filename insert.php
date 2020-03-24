@@ -2,7 +2,9 @@
 	include_once('conn.php');
 
 	// $id = $_POST['id'];
+	$time_start = microtime(true);
 
+	$jmlinput = (int)$_POST['jumlahinsert'];
 	$msisdn = $_POST['msisdn'];
 	$called= $_POST['called'];
 	$lat = $_POST['lat'];
@@ -18,18 +20,23 @@
 	}
 
 	$lastid = $row+1;
+	$maxulang = $lastid+$jmlinput;
 
+	for ($i=$lastid; $i < $maxulang; $i++) { 
+		$insert = "INSERT INTO bridge_log VALUES ('$i', '$msisdn', '$called', '$lat', '$lng', '$area', '$ts', '$tenant')";
+		$insertto = mysqli_query($koneksi, $insert);
+	}
 
-	$insert = "INSERT INTO bridge_log VALUES ('$lastid', '$msisdn', '$called', '$lat', '$lng', '$area', '$ts', '$tenant')";
+	$time_end = microtime(true);
 
-	$insertto = mysqli_query($koneksi, $insert);
+	$execution_time = $time_end - $time_start;
 
 	if($insertto) {
-	  $response['code'] =1;
-	  $response['message'] = "Success! Data Inserted";
+	  $response['result'] ="Success";
+	  $response['time'] = $execution_time;
 	} else {
-	  $response['code'] =0;
-	  $response['message'] = "Failed! Data Not Inserted";
+	  $response['result'] ="Failed";
+	  $response['time'] = $execution_time;
 	}
 
 
