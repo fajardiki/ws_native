@@ -19,7 +19,7 @@
 	}
 
 	$time_end = microtime(true);
-	$execution_time = round(($time_end - $time_start), 3);
+	$execution_time = $time_end - $time_start;
 
 	$respose = array();
 
@@ -27,7 +27,7 @@
 	  $respose['message'] = "Deleted Success";
 	  $respose['time'] = $execution_time;
 	} else {
-	  $respose['message'] = $jmldel;
+	  $respose['message'] = "Delete Failed";
 	  $respose['time'] = $execution_time;
 	}
 

@@ -36,10 +36,10 @@
 
 	if($queryupdate) {
 	  $respose['result'] = "Succes";
-	  $respose['Time'] = $execution_time;
+	  $respose['time'] = $execution_time;
 	} else {
 	  $respose['result'] = "Failed";
-	  $respose['Time'] = $execution_time;
+	  $respose['time'] = $execution_time;
 	}
 
 	echo json_encode($respose);

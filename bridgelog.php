@@ -5,8 +5,8 @@
 	// place this before any script you want to calculate time
     $time_start = microtime(true);
 
-    // $limit = $_GET['limit'];
-    $limit = 10;
+    $limit = $_GET['limit'];
+    // $limit = 10;
 
 	// AUTH TENANT
 	$bridge_log = "SELECT * FROM bridge_log LIMIT $limit";
@@ -32,7 +32,7 @@
 	$json = array(
 		'result'=>'succes',
 		'Bridge_Log'=>$item,
-		'Time'=>$execution_time
+		'time'=>$execution_time
 	);
 
 	// 'Auth_Session'=>$itemsession,
