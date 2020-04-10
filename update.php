@@ -1,16 +1,20 @@
 <?php 
 	include_once('conn.php');
 
+	$method = $_SERVER['REQUEST_METHOD'];
+	$request = explode('/', trim($_SERVER['PATH'],'/'));
+	$input = parse_str(file_get_contents('php://input'), $_put);
+
 	$time_start = microtime(true);
 
-	$jmlupdate = (int)$_POST['jumlahupdate'];
-	$msisdn = $_POST['msisdn'];
-	$called= $_POST['called'];
-	$lat = $_POST['lat'];
-	$lng = $_POST['lng'];
-	$area = $_POST['area'];
-	$ts = $_POST['ts'];
-	$tenant = $_POST['tenant'];
+	$jmlupdate = (int)$_put['jumlahupdate'];
+	$msisdn = $_put['msisdn'];
+	$called= $_put['called'];
+	$lat = $_put['lat'];
+	$lng = $_put['lng'];
+	$area = $_put['area'];
+	$ts = $_put['ts'];
+	$tenant = $_put['tenant'];
 
 	$id = mysqli_query($koneksi, "SELECT MAX(id) as id FROM bridge_log");
 
