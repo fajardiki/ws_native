@@ -1,10 +1,12 @@
 <?php 
 
 	include "conn.php";
+	include "time_start.php";
+	include "cpu_usage.php";
+	include "ram_usage.php";
 
-	// place this before any script you want to calculate time
-    $time_start = microtime(true);
-
+	startTimer();
+	
 	$cari = (int) $_GET['msisdn'];
 
 	$query = "SELECT * FROM bridge_log WHERE msisdn='$cari'";
@@ -23,25 +25,23 @@
 		);
 	}
 
-	$time_end = microtime(true);
-
-	$execution_time = $time_end - $time_start;
-
 	if($query_bridge_log) {
-	  	$json = array(
+		$json = array(
 			'result'=>'succes',
 			'Bridge_Log'=>$item,
-			'time'=>$execution_time
+			'time'=>endTimer()." Second",
+			'memory'=>memory().' MB',
+			'cpu'=>get_cpu_usage()."%"	
 		);
-
-		echo json_encode($json);
 	} else {
-	  	$json = array(
-			'result'=>'failed'
+		$json = array(
+			'result'=>'failed',
+			'time'=>endTimer()." Second",
+			'memory'=>memory().' MB',
+			'cpu'=>get_cpu_usage()."%"
 		);
-
-		echo json_encode($json);
 	}
 
+	echo json_encode($json);
 	
 ?>

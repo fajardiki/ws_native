@@ -1,11 +1,14 @@
 <?php 
 	include_once('conn.php');
+	include "time_start.php";
+	include "cpu_usage.php";
+	include "ram_usage.php";
+
+	startTimer();
 
 	$method = $_SERVER['REQUEST_METHOD'];
 	$request = explode('/', trim($_SERVER['PATH'],'/'));
 	$input = parse_str(file_get_contents('php://input'), $_put);
-
-	$time_start = microtime(true);
 
 	$jmlupdate = (int)$_put['jumlahupdate'];
 	$msisdn = $_put['msisdn'];
@@ -33,19 +36,23 @@
 		$queryupdate = mysqli_query($koneksi, $update);
 	}
 
-	$time_end = microtime(true);
-	$execution_time = $time_end - $time_start;
-
-	$respose = array();
-
 	if($queryupdate) {
-	  $respose['result'] = "Succes";
-	  $respose['time'] = $execution_time;
+		$json = array(
+			'result'=>'succes',
+			'request'=>$i,
+			'time'=>endTimer()." Second",
+			'memory'=>memory().' MB',
+			'cpu'=>get_cpu_usage()."%"
+		);
 	} else {
-	  $respose['result'] = "Failed";
-	  $respose['time'] = $execution_time;
+		$json = array(
+			'result'=>'failed',
+			'time'=>endTimer()." Second",
+			'memory'=>memory().' MB',
+			'cpu'=>get_cpu_usage()."%"
+		);
 	}
 
-	echo json_encode($respose);
+	echo json_encode($json);
 
 ?>

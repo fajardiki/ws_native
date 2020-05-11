@@ -1,8 +1,10 @@
 <?php 
 	include_once('conn.php');
+	include "time_start.php";
+	include "cpu_usage.php";
+	include "ram_usage.php";
 
-	// $id = $_POST['id'];
-	$time_start = microtime(true);
+	startTimer();
 
 	$jmlinput = (int)$_POST['jumlahinsert'];
 	$msisdn = $_POST['msisdn'];
@@ -27,18 +29,22 @@
 		$insertto = mysqli_query($koneksi, $insert);
 	}
 
-	$time_end = microtime(true);
-
-	$execution_time = $time_end - $time_start;
-
 	if($insertto) {
-	  $response['result'] ="Success";
-	  $response['time'] = $execution_time;
+		$json = array(
+			'result'=>'succes',
+			'request'=>$i,
+			'time'=>endTimer()." Second",
+			'memory'=>memory().' MB',
+			'cpu'=>get_cpu_usage()."%"
+		);
 	} else {
-	  $response['result'] ="Failed";
-	  $response['time'] = $execution_time;
+		$json = array(
+			'result'=>'failed',
+			'time'=>endTimer()." Second",
+			'memory'=>memory().' MB',
+			'cpu'=>get_cpu_usage()."%"
+		);
 	}
 
-
-	echo json_encode($response);
+	echo json_encode($json);
 ?>

@@ -1,6 +1,10 @@
 <?php 
 	include_once('conn.php');
-	$time_start = microtime(true);
+	include "time_start.php";
+	include "cpu_usage.php";
+	include "ram_usage.php";
+
+	startTimer();
 
 	$jmldel = (int)$_GET['jmldel'];
 
@@ -18,19 +22,23 @@
 		$querydelete = mysqli_query($koneksi, $delete);
 	}
 
-	$time_end = microtime(true);
-	$execution_time = $time_end - $time_start;
-
-	$respose = array();
-
 	if ($querydelete) {
-	  $respose['message'] = "Deleted Success";
-	  $respose['time'] = $execution_time;
+		$json = array(
+			'result'=>'succes',
+			'request'=>$i,
+			'time'=>endTimer()." Second",
+			'memory'=>memory().' MB',
+			'cpu'=>get_cpu_usage()."%"
+		);
 	} else {
-	  $respose['message'] = "Delete Failed";
-	  $respose['time'] = $execution_time;
+		$json = array(
+			'result'=>'failed',
+			'time'=>endTimer()." Second",
+			'memory'=>memory().' MB',
+			'cpu'=>get_cpu_usage()."%"
+		);
 	}
 
-	echo json_encode($respose);
+	echo json_encode($json);
 
 ?>
