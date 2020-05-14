@@ -33,14 +33,14 @@
 		$json = array(
 			'result'=>'succes',
 			'request'=>$i,
-			'time'=>endTimer()." Second",
+			'time'=>endTimer()." Sec",
 			'memory'=>memory().' MB',
 			'cpu'=>get_cpu_usage()."%"
 		);
 	} else {
 		$json = array(
 			'result'=>'failed',
-			'time'=>endTimer()." Second",
+			'time'=>endTimer()." Sec",
 			'memory'=>memory().' MB',
 			'cpu'=>get_cpu_usage()."%"
 		);

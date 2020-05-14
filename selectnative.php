@@ -30,7 +30,7 @@
 		'result'=>'succes',
 		'Bridge_Log'=>$item,
 		'request'=>$i,
-		'time'=>endTimer()." Second",
+		'time'=>endTimer()." Sec",
 		'memory'=>memory().' MB',
 		'cpu'=>get_cpu_usage()."%"	
 	);
